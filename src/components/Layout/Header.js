@@ -8,7 +8,7 @@ const Header = (props) => {
     <>
       <div className={style.background}>
         <h1>OrderMeals</h1>
-        <HeaderBtn />
+        <HeaderBtn handleOpen={props.handleOpen} />
       </div>
       <div className={style.mealsCSS}>
         <img src={meals} alt="" />

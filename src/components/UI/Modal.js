@@ -3,7 +3,7 @@ import style from "./Modal.module.css";
 import ReactDOM from "react-dom";
 
 const BackDrop = (props) => {
-  return <div className={style.backdrop}></div>;
+  return <div className={style.backdrop} onClick={props.handleClose}></div>;
 };
 
 const ModalOverlay = (props) => {
@@ -19,7 +19,7 @@ const portal = document.getElementById("overlay");
 const Modal = (props) => {
   return (
     <>
-      {ReactDOM.createPortal(<BackDrop />, portal)}
+      {ReactDOM.createPortal(<BackDrop handleClose={props.handleClose} />, portal)}
       {ReactDOM.createPortal(
         <ModalOverlay>{props.children}</ModalOverlay>,
         portal

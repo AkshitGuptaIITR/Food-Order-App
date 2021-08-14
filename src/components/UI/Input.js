@@ -1,4 +1,3 @@
-import { props } from "bluebird";
 import React from "react";
 import style from "./Input.module.css";
 

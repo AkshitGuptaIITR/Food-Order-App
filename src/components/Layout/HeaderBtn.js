@@ -7,8 +7,6 @@ const HeaderBtn = (props) => {
   const ctx = useContext(CartContext);
   const [btnStyle, setBtnStyle] = useState(false);
 
-  console.log(ctx.items)
-
   const cartItems = ctx.items.reduce((curNumber, item) => {
     return curNumber + 1;
   }, 0);

@@ -6,8 +6,10 @@ import axios from "axios";
 
 const MealsAvailible = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true)
     axios.get('https://react-http-3033b-default-rtdb.firebaseio.com/meals.json')
       .then((res) => {
         const response = res.data;
@@ -22,9 +24,11 @@ const MealsAvailible = () => {
             description: response[key].description
           })
         }
-        setMeals(loadedMeals)
+        setIsLoading(false);
+        setMeals(loadedMeals);
       })
       .catch((err) => {
+        setIsLoading(false)
         return err;
       })
   }, []);
@@ -46,7 +50,7 @@ const MealsAvailible = () => {
   return (
     <div className={style.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        <ul>{isLoading ? <p>Loading...</p> : mealsList}</ul>
       </Card>
     </div>
   );

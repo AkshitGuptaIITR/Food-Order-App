@@ -1,39 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Availible.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
+import axios from "axios";
 
 const MealsAvailible = () => {
-  const DUMMY_MEALS = [
-    {
-      id: "m1",
-      name: "Sushi",
-      description: "Finest fish and veggies",
-      price: 22.99,
-    },
-    {
-      id: "m2",
-      name: "Schnitzel",
-      description: "A german specialty!",
-      price: 16.5,
-    },
-    {
-      id: "m3",
-      name: "Barbecue Burger",
-      description: "American, raw, meaty",
-      price: 12.99,
-    },
-    {
-      id: "m4",
-      name: "Green Bowl",
-      description: "Healthy...and green...",
-      price: 18.99,
-    },
-  ];
+  const [meals, setMeals] = useState([]);
 
-  const mealsList = DUMMY_MEALS.map((meal) => {
+  useEffect(() => {
+    axios.get('https://react-http-3033b-default-rtdb.firebaseio.com/meals.json')
+      .then((res) => {
+        const response = res.data;
+        console.log(response['m1'])
+        const loadedMeals = [];
+
+        for (const key in response) {
+          loadedMeals.push({
+            id: key,
+            price: response[key].price,
+            name: response[key].name,
+            description: response[key].description
+          })
+        }
+        setMeals(loadedMeals)
+      })
+      .catch((err) => {
+        return err;
+      })
+  }, []);
+
+  const mealsList = meals.map((meal) => {
     return (
       <MealItem
+        meal={meals}
         id={meal.id}
         key={meal.id}
         name={meal.name}
@@ -41,7 +40,8 @@ const MealsAvailible = () => {
         price={meal.price}
       />
     );
-  });
+  })
+
 
   return (
     <div className={style.meals}>

@@ -13,7 +13,6 @@ const MealsAvailible = () => {
     axios.get('https://react-http-3033b-default-rtdb.firebaseio.com/meals.json')
       .then((res) => {
         const response = res.data;
-        console.log(response['m1'])
         const loadedMeals = [];
 
         for (const key in response) {
